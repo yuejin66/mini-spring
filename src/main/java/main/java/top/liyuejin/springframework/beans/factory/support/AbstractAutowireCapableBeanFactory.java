@@ -1,5 +1,6 @@
 package main.java.top.liyuejin.springframework.beans.factory.support;
 
+import cn.hutool.core.bean.BeanUtil;
 import main.java.top.liyuejin.springframework.beans.BeansException;
 import main.java.top.liyuejin.springframework.beans.PropertyValue;
 import main.java.top.liyuejin.springframework.beans.PropertyValues;
@@ -22,11 +23,12 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     @Override
-    protected Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args) {
+    protected Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args) throws BeansException {
         Object bean;
         try {
             bean = createBeanInstance(beanDefinition, beanName, args);
-
+            // Bean 填充属性
+            applyPropertyValues(beanName, bean, beanDefinition);
         } catch (Exception e) {
             throw new BeansException("Instantiation of bean failed", e);
         }
@@ -57,8 +59,12 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
             String name = propertyValue.getName();
             Object value = propertyValue.getValue();
             if (value instanceof BeanReference) {
+                // A 依赖 B，则获取 B 的实例化
                 BeanReference beanReference = (BeanReference) value;
+                value = getBean(beanReference.getBeanName());
             }
+            // 属性填充
+            BeanUtil.setFieldValue(bean, name, value);
         }
     }
 }
