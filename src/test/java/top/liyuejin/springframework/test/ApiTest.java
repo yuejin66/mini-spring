@@ -2,7 +2,6 @@ package top.liyuejin.springframework.test;
 
 import main.java.top.liyuejin.springframework.beans.PropertyValue;
 import main.java.top.liyuejin.springframework.beans.PropertyValues;
-import main.java.top.liyuejin.springframework.beans.factory.BeanFactory;
 import main.java.top.liyuejin.springframework.beans.factory.config.BeanDefinition;
 import main.java.top.liyuejin.springframework.beans.factory.config.BeanReference;
 import main.java.top.liyuejin.springframework.beans.factory.support.DefaultListableBeanFactory;
@@ -36,7 +35,7 @@ public class ApiTest {
         beanFactory.registerBeanDefinition("customerDao", new BeanDefinition(CustomerDao.class));
         // 3. CustomerService 设置属性[id, customerDao]
         PropertyValues propertyValues = new PropertyValues();
-        propertyValues.addPropertyValue(new PropertyValue("id", "10001"));
+        propertyValues.addPropertyValue(new PropertyValue("id", "10002"));
         propertyValues.addPropertyValue(new PropertyValue("customerDao", new BeanReference("customerDao")));
         // 4. CustomerService 注入 bean
         BeanDefinition beanDefinition = new BeanDefinition(CustomerService.class, propertyValues);
