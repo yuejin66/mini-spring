@@ -3,7 +3,6 @@ package main.java.top.liyuejin.springframework.beans.factory.xml;
 import cn.hutool.core.bean.BeanException;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.XmlUtil;
-import jdk.internal.util.xml.impl.Input;
 import main.java.top.liyuejin.springframework.beans.BeansException;
 import main.java.top.liyuejin.springframework.beans.PropertyValue;
 import main.java.top.liyuejin.springframework.beans.core.io.Resource;
@@ -18,7 +17,6 @@ import org.w3c.dom.NodeList;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 
 /**
  * @author tom lee

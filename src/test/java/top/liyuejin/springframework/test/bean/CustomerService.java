@@ -10,7 +10,7 @@ public class CustomerService {
     private CustomerDao customerDao;
 
     public void queryCustomerInfo() {
-        System.out.println("查询客户信息：" + customerDao.queryCustomerName(this.id));
+        customerDao.queryCustomerName(id);
     }
 
     public String getId() {

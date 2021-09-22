@@ -1,19 +1,34 @@
 package top.liyuejin.springframework.test;
 
+import cn.hutool.core.io.IoUtil;
 import main.java.top.liyuejin.springframework.beans.PropertyValue;
 import main.java.top.liyuejin.springframework.beans.PropertyValues;
+import main.java.top.liyuejin.springframework.beans.core.io.DefaultResourceLoader;
+import main.java.top.liyuejin.springframework.beans.core.io.Resource;
 import main.java.top.liyuejin.springframework.beans.factory.config.BeanDefinition;
 import main.java.top.liyuejin.springframework.beans.factory.config.BeanReference;
 import main.java.top.liyuejin.springframework.beans.factory.support.DefaultListableBeanFactory;
+import main.java.top.liyuejin.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.junit.Before;
 import org.junit.Test;
 import top.liyuejin.springframework.test.bean.CustomerDao;
 import top.liyuejin.springframework.test.bean.CustomerService;
 import top.liyuejin.springframework.test.bean.UserService;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * @author lyj
  */
 public class ApiTest {
+
+    private DefaultResourceLoader resourceLoader;
+
+    @Before
+    public void init() {
+        resourceLoader = new DefaultResourceLoader();
+    }
 
     @Test
     public void beanFactoryTest() {
@@ -42,6 +57,42 @@ public class ApiTest {
         beanFactory.registerBeanDefinition("customerService", beanDefinition);
         // 5. CustomerService 获取 bean
         CustomerService customerService = (CustomerService) beanFactory.getBean("customerService");
+        customerService.queryCustomerInfo();
+    }
+
+    @Test
+    public void classpathTest() throws IOException {
+        Resource resource = resourceLoader.getResource("classpath:important.properties");
+        InputStream inputStream = resource.getInputStream();
+        String content = IoUtil.read(inputStream, "UTF-8");
+        System.out.println(content);
+    }
+
+    @Test
+    public void fileTest() throws IOException {
+        Resource resource = resourceLoader.getResource("src/test/resources/important.properties");
+        InputStream inputStream = resource.getInputStream();
+        String content = IoUtil.read(inputStream, "UTF-8");
+        System.out.println(content);
+    }
+
+    @Test
+    public void urlTest() throws IOException {
+        Resource resource = resourceLoader.getResource("http://github.com/yuejin66/mini-spring/important.properties");
+        InputStream inputStream = resource.getInputStream();
+        String content = IoUtil.read(inputStream, "UTF-8");
+        System.out.println(content);
+    }
+
+    @Test
+    public void xmlTest() {
+        // 1. 初始化 BeanFactory
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+        // 2. 读取配置文件 & 注册 Bean
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+        reader.loadBeanDefinitions("classpath:spring.xml");
+        // 3. 获取 Bean 对象调用对象
+        CustomerService customerService = beanFactory.getBean("customerService", CustomerService.class);
         customerService.queryCustomerInfo();
     }
 }
