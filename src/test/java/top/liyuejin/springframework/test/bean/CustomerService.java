@@ -9,8 +9,8 @@ public class CustomerService {
 
     private CustomerDao customerDao;
 
-    public void queryCustomerInfo() {
-        customerDao.queryCustomerName(id);
+    public String queryCustomerInfo() {
+        return customerDao.queryCustomerName(id);
     }
 
     public String getId() {

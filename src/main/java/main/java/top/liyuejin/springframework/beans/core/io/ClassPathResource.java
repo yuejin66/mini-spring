@@ -1,5 +1,6 @@
 package main.java.top.liyuejin.springframework.beans.core.io;
 
+import cn.hutool.core.lang.Assert;
 import main.java.top.liyuejin.springframework.utils.ClassUtils;
 
 import java.io.FileNotFoundException;
@@ -22,6 +23,7 @@ public class ClassPathResource implements Resource{
     }
 
     public ClassPathResource(String path, ClassLoader classLoader) {
+        Assert.notNull(path, "Path must not be null");
         this.path = path;
         this.classLoader = (null != classLoader ? classLoader : ClassUtils.getDefaultClassLoader());
     }
@@ -34,5 +36,13 @@ public class ClassPathResource implements Resource{
                     "cannot be opened because it does not exist");
         }
         return inputStream;
+    }
+
+    public ClassLoader getClassLoader() {
+        return classLoader;
+    }
+
+    public void setClassLoader(ClassLoader classLoader) {
+        this.classLoader = classLoader;
     }
 }

@@ -6,6 +6,10 @@ package main.java.top.liyuejin.springframework.utils;
 public class ClassUtils {
 
     public static ClassLoader getDefaultClassLoader() {
-        return null;
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        if (null == classLoader) {
+            classLoader = ClassUtils.class.getClassLoader();
+        }
+        return classLoader;
     }
 }

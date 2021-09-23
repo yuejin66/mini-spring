@@ -2,11 +2,8 @@ package main.java.top.liyuejin.springframework.beans.core.io;
 
 import cn.hutool.core.lang.Assert;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import static main.java.top.liyuejin.springframework.beans.constant.ResourceConstant.CLASSPATH_URL_PREFIX;
 
 /**
  * @author tom lee

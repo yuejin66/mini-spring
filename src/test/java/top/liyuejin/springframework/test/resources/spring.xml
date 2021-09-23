@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
     <bean id="customerDao" class="top.liyuejin.springframework.test.bean.CustomerDao"/>
+
     <bean id="customerService" class="top.liyuejin.springframework.test.bean.CustomerService">
         <property name="id" value="10001"/>
         <property name="customerDao" ref="customerDao"/>

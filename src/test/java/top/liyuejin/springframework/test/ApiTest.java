@@ -70,7 +70,8 @@ public class ApiTest {
 
     @Test
     public void fileTest() throws IOException {
-        Resource resource = resourceLoader.getResource("src/test/resources/important.properties");
+        Resource resource = resourceLoader.getResource("D:\\liyuejin_project\\mini-spring\\src" +
+                "\\test\\java\\top\\liyuejin\\springframework\\test\\resources\\important.properties");
         InputStream inputStream = resource.getInputStream();
         String content = IoUtil.read(inputStream, "UTF-8");
         System.out.println(content);
@@ -93,6 +94,7 @@ public class ApiTest {
         reader.loadBeanDefinitions("classpath:spring.xml");
         // 3. 获取 Bean 对象调用对象
         CustomerService customerService = beanFactory.getBean("customerService", CustomerService.class);
-        customerService.queryCustomerInfo();
+        String info = customerService.queryCustomerInfo();
+        System.out.println(info);
     }
 }
