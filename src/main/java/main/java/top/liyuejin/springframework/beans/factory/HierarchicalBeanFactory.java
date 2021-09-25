@@ -3,5 +3,5 @@ package main.java.top.liyuejin.springframework.beans.factory;
 /**
  * @author tom lee
  */
-public class HierarchicalBeanFactory {
+public interface HierarchicalBeanFactory extends BeanFactory {
 }
