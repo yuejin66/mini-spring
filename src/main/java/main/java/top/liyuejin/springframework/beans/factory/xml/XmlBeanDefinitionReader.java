@@ -19,7 +19,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @author tom lee
+ * 解析 XML 处理 Bean 注册
+ *
+ * @author yuejin66
  */
 public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
@@ -54,6 +56,9 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         loadBeanDefinitions(resource);
     }
 
+    /**
+     * 主要负责解析 xml
+     */
     protected void doLoadBeanDefinitions(InputStream inputStream) throws ClassNotFoundException {
         Document document = XmlUtil.readXML(inputStream);
         Element element = document.getDocumentElement();

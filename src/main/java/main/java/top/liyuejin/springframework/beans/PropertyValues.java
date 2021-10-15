@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 类的属性集合
+ *
  * @author lyj
  */
 public class PropertyValues {

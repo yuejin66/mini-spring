@@ -10,9 +10,9 @@ import main.java.top.liyuejin.springframework.beans.factory.config.BeanReference
 import java.lang.reflect.Constructor;
 
 /**
- * @author lyj
+ * 实例化 Bean
  *
- * 实例化 bean
+ * @author lyj
  */
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
 
@@ -50,16 +50,14 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         return getInstantiationStrategy().instantiate(beanDefinition, beanName, constructorToUse, args);
     }
 
-    /**
-     * Bean 属性填充
-     */
     protected void applyPropertyValues(String beanName, Object bean, BeanDefinition beanDefinition) {
         PropertyValues propertyValues = beanDefinition.getPropertyValues();
         for (PropertyValue propertyValue : propertyValues.getPropertyValues()) {
             String name = propertyValue.getName();
             Object value = propertyValue.getValue();
             if (value instanceof BeanReference) {
-                // A 依赖 B，则获取 B 的实例化
+                // A 依赖 B，则获取 B 的实例化。即是当遇到 Bean 属性为 Bean 对象时，需要做递归处理。最后在属性填充时需要
+                // 用到反射操作，也可以使用一些工具类处理
                 BeanReference beanReference = (BeanReference) value;
                 value = getBean(beanReference.getBeanName());
             }

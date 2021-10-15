@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @author tom lee
- *
  * 通过 ClassLoader 来读取 ClassPath 下的文件信息
+ *
+ * @author tom lee
  */
 public class ClassPathResource implements Resource{
 

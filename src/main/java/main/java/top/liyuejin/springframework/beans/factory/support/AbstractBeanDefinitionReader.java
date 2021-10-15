@@ -4,7 +4,9 @@ import main.java.top.liyuejin.springframework.beans.core.io.DefaultResourceLoade
 import main.java.top.liyuejin.springframework.beans.core.io.ResourceLoader;
 
 /**
- * @author tom lee
+ * Bean 定义抽象类实现
+ *
+ * @author yuejin66
  */
 public abstract class AbstractBeanDefinitionReader implements BeanDefinitionReader {
 
@@ -21,9 +23,7 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
         this.resourceLoader = resourceLoader;
     }
 
-    public void containsBeanDefinition(String beanName) {
-
-    }
+    public void containsBeanDefinition(String beanName) { }
 
     @Override
     public BeanDefinitionRegistry getRegistry() {

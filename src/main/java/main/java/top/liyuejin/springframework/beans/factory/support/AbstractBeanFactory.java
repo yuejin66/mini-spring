@@ -9,10 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author lyj
+ * 抽象类定义模板方法
  *
- * 核心实现 BeanFactory，使用模板模式，可以统一收口通用核心方法的调用逻辑和标准定义，
- * 也就很好的控制了后续的实现者不用关心调用逻辑，按照统一方式执行
+ *   实现 BeanFactory，使用模板模式，统一收口通用核心方法的调用逻辑和标准定义，
+ * 能很好地控制了后续的实现者不用关心调用逻辑，按照统一方式执行，类的继承者只需要
+ * 关心具体方法的逻辑实现即可。
+ *
+ * @author lyj
  */
 @SuppressWarnings("unchecked")
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry

@@ -7,6 +7,8 @@ import main.java.top.liyuejin.springframework.beans.factory.config.BeanPostProce
 import main.java.top.liyuejin.springframework.beans.factory.config.ConfigurableBeanFactory;
 
 /**
+ * 提供分析和修改 Bean 以及预先实例化的操作接口
+ *
  * @author tom lee
  */
 public interface ConfigurableListableBeanFactory extends ListableBeanFactory, AutowireCapableBeanFactory, ConfigurableBeanFactory {

@@ -1,6 +1,8 @@
 package main.java.top.liyuejin.springframework.beans;
 
 /**
+ * 类的属性
+ *
  * @author lyj
  */
 public class PropertyValue {

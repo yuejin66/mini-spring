@@ -3,9 +3,9 @@ package main.java.top.liyuejin.springframework.beans.factory.config;
 import main.java.top.liyuejin.springframework.beans.PropertyValues;
 
 /**
- * @author lyj
+ * Bean 定义类
  *
- * 定义 Bean 实例化信息
+ * @author lyj
  */
 public class BeanDefinition {
 
@@ -22,6 +22,8 @@ public class BeanDefinition {
         this.beanClass = beanClass;
         this.propertyValues = propertyValues != null ? propertyValues : new PropertyValues();
     }
+
+    /* get/set */
 
     public Class<?> getBeanClass() {
         return beanClass;

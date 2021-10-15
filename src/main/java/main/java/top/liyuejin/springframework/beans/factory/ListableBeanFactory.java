@@ -5,6 +5,8 @@ import main.java.top.liyuejin.springframework.beans.BeansException;
 import java.util.Map;
 
 /**
+ * 扩展 Bean 工厂接口的接口
+ *
  * @author tom lee
  */
 public interface ListableBeanFactory extends BeanFactory {

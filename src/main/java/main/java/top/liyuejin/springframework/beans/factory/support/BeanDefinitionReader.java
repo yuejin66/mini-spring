@@ -5,7 +5,13 @@ import main.java.top.liyuejin.springframework.beans.core.io.Resource;
 import main.java.top.liyuejin.springframework.beans.core.io.ResourceLoader;
 
 /**
- * @author tom lee
+ * Bean 定义读取接口
+ *
+ *   这里需要注意 getRegistry()、getResourceLoader()，都是用于提供给后面三
+ * 个方法的工具，加载和注册，这两个方法的实现会包装到抽象类中，以免污染具体的接口
+ * 实现方法。
+ *
+ * @author yuejin66
  */
 public interface BeanDefinitionReader {
 

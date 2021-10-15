@@ -9,9 +9,9 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * @author tom lee
- *
  * 通过 HTTP 可以读取云服务的文件，我们可以把配置放到 GitHub 或 Gitee 上
+ *
+ * @author tom lee
  */
 public class UrlResource implements Resource{
 

@@ -1,6 +1,8 @@
 package main.java.top.liyuejin.springframework.beans.factory.config;
 
 /**
+ * 类引用
+ *
  * @author lyj
  */
 public class BeanReference {
@@ -10,6 +12,8 @@ public class BeanReference {
     public BeanReference(String beanName) {
         this.beanName = beanName;
     }
+
+    /* get/set */
 
     public String getBeanName() {
         return beanName;
