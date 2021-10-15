@@ -10,10 +10,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author lyj
+ *
+ * 核心实现类
  */
+@SuppressWarnings("unchecked")
 public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory
         implements BeanDefinitionRegistry, ConfigurableListableBeanFactory {
-
+    // 依赖 BeanDefinition
     private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
 
     @Override

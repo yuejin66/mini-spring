@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * @author lyj
  *
- * 保存和获取单例对象
+ * 保存和获取单例对象，再次使用该 Bean 时不需要再重复创建，直接从这里获取
  */
 public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
 

@@ -4,6 +4,8 @@ import main.java.top.liyuejin.springframework.beans.PropertyValues;
 
 /**
  * @author lyj
+ *
+ * 定义 Bean 实例化信息
  */
 public class BeanDefinition {
 
