@@ -1,6 +1,6 @@
 package main.java.top.liyuejin.springframework.beans.factory.support;
 
-import cn.hutool.core.bean.BeanException;
+import main.java.top.liyuejin.springframework.beans.BeansException;
 import main.java.top.liyuejin.springframework.beans.core.io.Resource;
 import main.java.top.liyuejin.springframework.beans.core.io.ResourceLoader;
 
@@ -19,9 +19,11 @@ public interface BeanDefinitionReader {
 
     ResourceLoader getResourceLoader();
 
-    void loadBeanDefinitions(Resource resource) throws BeanException;
+    void loadBeanDefinitions(Resource resource) throws BeansException;
 
-    void loadBeanDefinitions(Resource... resources) throws BeanException;
+    void loadBeanDefinitions(Resource... resources) throws BeansException;
 
-    void loadBeanDefinitions(String location) throws BeanException;
+    void loadBeanDefinitions(String location) throws BeansException;
+
+    void loadBeanDefinitions(String[] locations) throws BeansException;
 }

@@ -3,7 +3,9 @@ package main.java.top.liyuejin.springframework.beans.factory.config;
 import main.java.top.liyuejin.springframework.beans.BeansException;
 
 /**
- * @author tom lee
+ * 用于修改新实例化 Bean 对象的扩展点
+ *
+ * @author yuejin66
  */
 public interface BeanPostProcessor {
 

@@ -21,7 +21,11 @@ import java.util.List;
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry
         implements ConfigurableBeanFactory {
 
-    private final List<BeanPostProcessor> beanPostProcessorList = new ArrayList<>();
+    private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
+
+    public List<BeanPostProcessor> getBeanPostProcessors() {
+        return this.beanPostProcessors;
+    }
 
     @Override
     public Object getBean(String beanName) throws BeansException {
@@ -40,8 +44,8 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry
 
     @Override
     public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor) {
-        this.beanPostProcessorList.remove(beanPostProcessor);
-        this.beanPostProcessorList.add(beanPostProcessor);
+        this.beanPostProcessors.remove(beanPostProcessor);
+        this.beanPostProcessors.add(beanPostProcessor);
     }
 
     protected Object doGetBean(final String beanName, final Object[] args) {
