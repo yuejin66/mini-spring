@@ -11,8 +11,8 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 核心实现类，能获取和注册 Bean 的定义
  *
- * 1. 继承 AbstractBeanFactory，能够获取 Bean 的定义
- * 2. 同时也实现 BeanDefinitionRegistry 接口的 registerBeanDefinition 方法，能够注册 Bean 的定义
+ * 1. 继承 AbstractBeanFactory，能够获取 Bean 的定义。
+ * 2. 同时也实现 BeanDefinitionRegistry 接口的 registerBeanDefinition 方法，能够注册 Bean 的定义。
  *
  * @author lyj
  */
@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory
         implements BeanDefinitionRegistry, ConfigurableListableBeanFactory {
 
-    private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
+    private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
 
     @Override
     public BeanDefinition getBeanDefinition(String beanName) {

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
     <bean id="customerDao" class="top.liyuejin.springframework.test.bean.CustomerDao"/>
-
     <bean id="customerService" class="top.liyuejin.springframework.test.bean.CustomerService">
         <property name="id" value="10001"/>
+        <property name="companyName" value="腾讯"/>
+        <property name="location" value="深圳"/>
         <property name="customerDao" ref="customerDao"/>
     </bean>
+    <bean class="top.liyuejin.springframework.test.common.MyBeanPostProcessor"/>
+    <bean class="top.liyuejin.springframework.test.common.MyBeanFactoryPostProcessor"/>
 </beans>

@@ -86,7 +86,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             // 优先级 id > name
             String beanName = StrUtil.isNotEmpty(id) ? id : name;
             if (StrUtil.isEmpty(beanName)) {
-                StrUtil.lowerFirst(clazz.getSimpleName());
+                beanName = StrUtil.lowerFirst(clazz.getSimpleName());
             }
             // 定义 bean
             BeanDefinition beanDefinition = new BeanDefinition(clazz);
@@ -99,12 +99,12 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
                 String attrValue = property.getAttribute("value");
                 String attrRef = property.getAttribute("ref");
                 // 获取属性值：引入对象、值对象
-                Object value = StrUtil.isNotEmpty(attrRef) ? new BeanReference(attrValue) : attrValue;
+                Object value = StrUtil.isNotEmpty(attrRef) ? new BeanReference(attrRef) : attrValue;
                 PropertyValue propertyValue = new PropertyValue(attrName, value);
                 beanDefinition.getPropertyValues().addPropertyValue(propertyValue);
             }
             if (getRegistry().containsBeanDefinition(beanName))
-                throw new BeanException("Duplicate beanName[" + beanName + "] is not allowed");
+                throw new BeansException("Duplicate beanName[" + beanName + "] is not allowed");
             getRegistry().registerBeanDefinition(beanName, beanDefinition);
         }
     }

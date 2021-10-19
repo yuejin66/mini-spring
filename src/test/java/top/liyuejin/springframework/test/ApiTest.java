@@ -9,11 +9,14 @@ import main.java.top.liyuejin.springframework.beans.factory.config.BeanDefinitio
 import main.java.top.liyuejin.springframework.beans.factory.config.BeanReference;
 import main.java.top.liyuejin.springframework.beans.factory.support.DefaultListableBeanFactory;
 import main.java.top.liyuejin.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import main.java.top.liyuejin.springframework.context.support.ClassPathXmlApplicationContext;
 import org.junit.Before;
 import org.junit.Test;
 import top.liyuejin.springframework.test.bean.CustomerDao;
 import top.liyuejin.springframework.test.bean.CustomerService;
 import top.liyuejin.springframework.test.bean.UserService;
+import top.liyuejin.springframework.test.common.MyBeanFactoryPostProcessor;
+import top.liyuejin.springframework.test.common.MyBeanPostProcessor;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,7 +64,7 @@ public class ApiTest {
     }
 
     @Test
-    public void classpathTest() throws IOException {
+    public void test_classpath() throws IOException {
         Resource resource = resourceLoader.getResource("classpath:important.properties");
         InputStream inputStream = resource.getInputStream();
         String content = IoUtil.read(inputStream, "UTF-8");
@@ -69,7 +72,7 @@ public class ApiTest {
     }
 
     @Test
-    public void fileTest() throws IOException {
+    public void test_file() throws IOException {
         Resource resource = resourceLoader.getResource("D:\\liyuejin_project\\mini-spring\\src" +
                 "\\test\\java\\top\\liyuejin\\springframework\\test\\resources\\important.properties");
         InputStream inputStream = resource.getInputStream();
@@ -78,7 +81,7 @@ public class ApiTest {
     }
 
     @Test
-    public void urlTest() throws IOException {
+    public void test_url() throws IOException {
         Resource resource = resourceLoader.getResource("http://github.com/yuejin66/mini-spring/important.properties");
         InputStream inputStream = resource.getInputStream();
         String content = IoUtil.read(inputStream, "UTF-8");
@@ -86,7 +89,7 @@ public class ApiTest {
     }
 
     @Test
-    public void xmlTest() {
+    public void test_xml() {
         // 1. 初始化 BeanFactory
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
         // 2. 读取配置文件 & 注册 Bean
@@ -94,7 +97,34 @@ public class ApiTest {
         reader.loadBeanDefinitions("classpath:spring.xml");
         // 3. 获取 Bean 对象调用对象
         CustomerService customerService = beanFactory.getBean("customerService", CustomerService.class);
-        String info = customerService.queryCustomerInfo();
-        System.out.println(info);
+        String result = customerService.queryCustomerInfo();
+        System.out.println("测试结果：" + result);
+    }
+
+    @Test
+    public void test_BeanFactoryPostProcessorAndBeanPostProcessor_1() {
+        // 1-2 同上
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+        reader.loadBeanDefinitions("classpath:context_1.xml");
+        // 3. BeanDefinition  加载完成 & Bean 实例化之前，修改 BeanDefinition  的属性值
+        MyBeanFactoryPostProcessor beanFactoryPostProcessor = new MyBeanFactoryPostProcessor();
+        beanFactoryPostProcessor.postProcessBeanFactory(beanFactory);
+        // 4. Bean 实例化之后，修改 Bean 属性信息
+        MyBeanPostProcessor beanPostProcessor = new MyBeanPostProcessor();
+        beanFactory.addBeanPostProcessor(beanPostProcessor);
+        // 5. 获取 Bean 对象调用
+        CustomerService customerService = beanFactory.getBean("customerService", CustomerService.class);
+        String result = customerService.queryCustomerInfo();
+        System.out.println("测试结果：" + result);
+    }
+
+    @Test
+    public void test_BeanFactoryPostProcessorAndBeanPostProcessor_2() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:context_2.xml");
+        // 2. 获取 Bean 对象调用方法
+        CustomerService customerService = context.getBean("customerService", CustomerService.class);
+        String result = customerService.queryCustomerInfo();
+        System.out.println("测试结果" + result);
     }
 }
