@@ -48,12 +48,12 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry
         this.beanPostProcessors.add(beanPostProcessor);
     }
 
-    protected Object doGetBean(final String beanName, final Object[] args) {
+    protected <T> T doGetBean(final String beanName, final Object[] args) {
         Object bean = getSingleton(beanName);
         if (null != bean)
-            return bean;
+            return (T) bean;
         BeanDefinition beanDefinition = getBeanDefinition(beanName);
-        return createBean(beanName, beanDefinition, args);
+        return (T) createBean(beanName, beanDefinition, args);
     }
 
     protected abstract BeanDefinition getBeanDefinition(String beanName) throws BeansException;

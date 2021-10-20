@@ -5,7 +5,7 @@ import main.java.top.liyuejin.springframework.beans.factory.HierarchicalBeanFact
 /**
  * 可获取 BeanPostProcessor、BeanClassLoader 等的一个配置化接口
  *
- * @author tom lee
+ * @author yuejin66
  */
 public interface ConfigurableBeanFactory extends HierarchicalBeanFactory, SingletonBeanRegistry {
 
@@ -16,4 +16,9 @@ public interface ConfigurableBeanFactory extends HierarchicalBeanFactory, Single
     String SCOPE_PROTOTYPE = "prototype";
 
     void addBeanPostProcessor(BeanPostProcessor beanPostProcessor);
+
+    /**
+     * 销毁单例对象
+     */
+    void destroySingletons();
 }

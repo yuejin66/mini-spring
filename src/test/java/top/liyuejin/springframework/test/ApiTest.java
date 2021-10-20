@@ -115,7 +115,7 @@ public class ApiTest {
         beanFactory.addBeanPostProcessor(beanPostProcessor);
         // 5. 获取 Bean 对象调用
         CustomerService customerService = beanFactory.getBean("customerService", CustomerService.class);
-        String result = customerService.queryCustomerInfo();
+        String result = customerService.getCustomer();
         System.out.println("测试结果：" + result);
     }
 
@@ -124,7 +124,16 @@ public class ApiTest {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:context_2.xml");
         // 2. 获取 Bean 对象调用方法
         CustomerService customerService = context.getBean("customerService", CustomerService.class);
-        String result = customerService.queryCustomerInfo();
+        String result = customerService.getCustomer();
         System.out.println("测试结果" + result);
+    }
+
+    @Test
+    public void test_hook() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:init&destroy.xml");
+        context.registerShutdownHook();
+        CustomerService customerService = context.getBean("customerService", CustomerService.class);
+        String result = customerService.getCustomer();
+        System.out.println(result);
     }
 }

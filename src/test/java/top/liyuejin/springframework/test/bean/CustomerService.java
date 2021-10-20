@@ -1,9 +1,12 @@
 package top.liyuejin.springframework.test.bean;
 
+import main.java.top.liyuejin.springframework.beans.factory.DisposableBean;
+import main.java.top.liyuejin.springframework.beans.factory.InitializingBean;
+
 /**
  * @author lyj
  */
-public class CustomerService {
+public class CustomerService implements InitializingBean, DisposableBean {
 
     private String id;
 
@@ -14,11 +17,22 @@ public class CustomerService {
     private CustomerDao customerDao;
 
     public String queryCustomerInfo() {
-        return customerDao.queryCustomerName(id)
-                .concat(",")
-                .concat(companyName)
-                .concat(",")
-                .concat(location);
+        return customerDao.queryCustomerName(id);
+    }
+
+    public String getCustomer() {
+        String info = customerDao.queryCustomerName(id);
+        return info + "," + companyName + "," + location;
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("执行：UserService.destroy");
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("执行：UserService.afterPropertiesSet");
     }
 
     /* getter,setter */
