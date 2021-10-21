@@ -4,6 +4,7 @@ import main.java.top.liyuejin.springframework.beans.BeansException;
 import main.java.top.liyuejin.springframework.beans.factory.config.BeanDefinition;
 import main.java.top.liyuejin.springframework.beans.factory.config.BeanPostProcessor;
 import main.java.top.liyuejin.springframework.beans.factory.config.ConfigurableBeanFactory;
+import main.java.top.liyuejin.springframework.utils.ClassUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,10 @@ import java.util.List;
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry
         implements ConfigurableBeanFactory {
 
-    private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
+    // ClassLoader 用来解析 bean 类名
+    private final ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
-    public List<BeanPostProcessor> getBeanPostProcessors() {
-        return this.beanPostProcessors;
-    }
+    private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
 
     @Override
     public Object getBean(String beanName) throws BeansException {
@@ -46,6 +46,14 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry
     public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor) {
         this.beanPostProcessors.remove(beanPostProcessor);
         this.beanPostProcessors.add(beanPostProcessor);
+    }
+
+    public List<BeanPostProcessor> getBeanPostProcessors() {
+        return this.beanPostProcessors;
+    }
+
+    public ClassLoader getBeanClassLoader() {
+        return this.beanClassLoader;
     }
 
     protected <T> T doGetBean(final String beanName, final Object[] args) {

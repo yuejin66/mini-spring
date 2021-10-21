@@ -5,8 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import main.java.top.liyuejin.springframework.beans.BeansException;
 import main.java.top.liyuejin.springframework.beans.PropertyValue;
 import main.java.top.liyuejin.springframework.beans.PropertyValues;
-import main.java.top.liyuejin.springframework.beans.factory.DisposableBean;
-import main.java.top.liyuejin.springframework.beans.factory.InitializingBean;
+import main.java.top.liyuejin.springframework.beans.factory.*;
 import main.java.top.liyuejin.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import main.java.top.liyuejin.springframework.beans.factory.config.BeanDefinition;
 import main.java.top.liyuejin.springframework.beans.factory.config.BeanPostProcessor;
@@ -68,9 +67,21 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     private Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) throws Exception {
+        // invokeAwareMethods
+        if (bean instanceof Aware) {
+            if (bean instanceof BeanFactoryAware) {
+                ((BeanFactoryAware) bean).setBeanFactory(this);
+            } else if (bean instanceof BeanClassLoaderAware) {
+                ((BeanClassLoaderAware) bean).setBeanClassLoader(getBeanClassLoader());
+            } else if (bean instanceof BeanNameAware) {
+                ((BeanNameAware) bean).setBeanName(beanName);
+            }
+        }
+
         // 1. 执行 BeanPostProcessor Before 处理
         Object wrappedBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
         invokeInitMethods(beanName, wrappedBean, beanDefinition);
+
         // 2. 执行 BeanPostProcessor After  处理
         wrappedBean = applyBeanPostProcessorsAfterInitialization(bean, beanName);
         return wrappedBean;
