@@ -5,7 +5,7 @@ package main.java.top.liyuejin.springframework.beans.factory;
  *
  * @author lyj
  */
-public interface BeanNameAware {
+public interface BeanNameAware extends Aware {
 
     void setBeanName(String beanName);
 }

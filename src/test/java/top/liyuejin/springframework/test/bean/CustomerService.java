@@ -1,12 +1,15 @@
 package top.liyuejin.springframework.test.bean;
 
-import main.java.top.liyuejin.springframework.beans.factory.DisposableBean;
-import main.java.top.liyuejin.springframework.beans.factory.InitializingBean;
+import main.java.top.liyuejin.springframework.beans.BeansException;
+import main.java.top.liyuejin.springframework.beans.factory.*;
+import main.java.top.liyuejin.springframework.context.ApplicationContext;
+import main.java.top.liyuejin.springframework.context.ApplicationContextAware;
 
 /**
  * @author lyj
  */
-public class CustomerService implements InitializingBean, DisposableBean {
+public class CustomerService implements BeanNameAware, BeanClassLoaderAware, ApplicationContextAware,
+        BeanFactoryAware, InitializingBean, DisposableBean {
 
     private String id;
 
@@ -15,6 +18,10 @@ public class CustomerService implements InitializingBean, DisposableBean {
     private String location;
 
     private CustomerDao customerDao;
+
+    private BeanFactory beanFactory;
+
+    private ApplicationContext applicationContext;
 
     public String queryCustomerInfo() {
         return customerDao.queryCustomerName(id);
@@ -33,6 +40,26 @@ public class CustomerService implements InitializingBean, DisposableBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         System.out.println("执行：UserService.afterPropertiesSet");
+    }
+
+    @Override
+    public void setBeanClassLoader(ClassLoader classLoader) {
+        System.out.println("ClassLoader: " + classLoader);
+    }
+
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = beanFactory;
+    }
+
+    @Override
+    public void setBeanName(String beanName) {
+        System.out.println("Bean Name is: " + beanName);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 
     /* getter,setter */
@@ -67,5 +94,13 @@ public class CustomerService implements InitializingBean, DisposableBean {
 
     public void setCustomerDao(CustomerDao customerDao) {
         this.customerDao = customerDao;
+    }
+
+    public BeanFactory getBeanFactory() {
+        return beanFactory;
+    }
+
+    public ApplicationContext getApplicationContext() {
+        return applicationContext;
     }
 }

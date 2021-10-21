@@ -125,7 +125,7 @@ public class ApiTest {
         // 2. 获取 Bean 对象调用方法
         CustomerService customerService = context.getBean("customerService", CustomerService.class);
         String result = customerService.getCustomer();
-        System.out.println("测试结果" + result);
+        System.out.println("测试结果：" + result);
     }
 
     @Test
@@ -135,5 +135,15 @@ public class ApiTest {
         CustomerService customerService = context.getBean("customerService", CustomerService.class);
         String result = customerService.getCustomer();
         System.out.println(result);
+    }
+
+    @Test
+    public void test_aware() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:init&destroy.xml");
+        context.registerShutdownHook();
+        CustomerService customerService = context.getBean("customerService", CustomerService.class);
+        String result = customerService.getCustomer();
+        System.out.println("测试结果：" + result);
+        System.out.println("ApplicationContextAware：" + customerService.getApplicationContext());
     }
 }
