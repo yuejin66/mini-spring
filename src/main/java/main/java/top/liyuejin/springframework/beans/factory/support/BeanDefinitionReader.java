@@ -4,6 +4,8 @@ import main.java.top.liyuejin.springframework.beans.BeansException;
 import main.java.top.liyuejin.springframework.beans.core.io.Resource;
 import main.java.top.liyuejin.springframework.beans.core.io.ResourceLoader;
 
+import java.io.InputStream;
+
 /**
  * Bean 定义读取接口
  *
