@@ -1,4 +1,4 @@
-package top.liyuejin.springframework.test.bean;
+package top.liyuejin.springframework.test.bean.customer;
 
 import java.util.HashMap;
 import java.util.Map;

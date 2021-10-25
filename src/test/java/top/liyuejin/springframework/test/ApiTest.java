@@ -12,9 +12,9 @@ import main.java.top.liyuejin.springframework.beans.factory.xml.XmlBeanDefinitio
 import main.java.top.liyuejin.springframework.context.support.ClassPathXmlApplicationContext;
 import org.junit.Before;
 import org.junit.Test;
-import top.liyuejin.springframework.test.bean.CustomerDao;
-import top.liyuejin.springframework.test.bean.CustomerService;
-import top.liyuejin.springframework.test.bean.UserService;
+import top.liyuejin.springframework.test.bean.customer.CustomerDao;
+import top.liyuejin.springframework.test.bean.customer.CustomerService;
+import top.liyuejin.springframework.test.bean.user.UserService;
 import top.liyuejin.springframework.test.common.MyBeanFactoryPostProcessor;
 import top.liyuejin.springframework.test.common.MyBeanPostProcessor;
 

@@ -1,4 +1,4 @@
-package top.liyuejin.springframework.test.bean;
+package top.liyuejin.springframework.test.bean.user;
 
 /**
  * @author lyj

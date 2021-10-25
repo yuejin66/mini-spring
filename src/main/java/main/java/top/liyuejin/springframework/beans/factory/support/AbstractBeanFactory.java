@@ -1,6 +1,7 @@
 package main.java.top.liyuejin.springframework.beans.factory.support;
 
 import main.java.top.liyuejin.springframework.beans.BeansException;
+import main.java.top.liyuejin.springframework.beans.factory.FactoryBean;
 import main.java.top.liyuejin.springframework.beans.factory.config.BeanDefinition;
 import main.java.top.liyuejin.springframework.beans.factory.config.BeanPostProcessor;
 import main.java.top.liyuejin.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -19,7 +20,7 @@ import java.util.List;
  * @author lyj
  */
 @SuppressWarnings("unchecked")
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry
+public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport
         implements ConfigurableBeanFactory {
 
     // ClassLoader 用来解析 bean 类名
@@ -57,14 +58,29 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry
     }
 
     protected <T> T doGetBean(final String beanName, final Object[] args) {
-        Object bean = getSingleton(beanName);
-        if (null != bean)
-            return (T) bean;
+        Object sharedInstance = getSingleton(beanName);
+        if (null != sharedInstance)
+            // 如果是 FactoryBean，则需要调用 FactoryBean#getObject
+            return (T) getObjectForBeanInstance(sharedInstance, beanName);
+
         BeanDefinition beanDefinition = getBeanDefinition(beanName);
-        return (T) createBean(beanName, beanDefinition, args);
+        Object bean = createBean(beanName, beanDefinition, args);
+        return (T) getObjectForBeanInstance(bean, beanName);
     }
 
     protected abstract BeanDefinition getBeanDefinition(String beanName) throws BeansException;
 
     protected abstract Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args) throws BeansException;
+
+    private Object getObjectForBeanInstance(Object beanInstance, String beanName) {
+        if (!(beanInstance instanceof FactoryBean)) {
+            return beanInstance;
+        }
+        Object object = getCachedObjectForFactoryBean(beanName);
+        if (null == object) {
+            FactoryBean<?> factoryBean = (FactoryBean<?>) beanInstance;
+            object = getObjectFromFactoryBean(factoryBean, beanName);
+        }
+        return object;
+    }
 }

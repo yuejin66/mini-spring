@@ -2,7 +2,7 @@ package top.liyuejin.springframework.test.common;
 
 import main.java.top.liyuejin.springframework.beans.BeansException;
 import main.java.top.liyuejin.springframework.beans.factory.config.BeanPostProcessor;
-import top.liyuejin.springframework.test.bean.CustomerService;
+import top.liyuejin.springframework.test.bean.customer.CustomerService;
 
 /**
  * @author lyj

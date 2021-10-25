@@ -1,9 +1,10 @@
-package top.liyuejin.springframework.test.bean;
+package top.liyuejin.springframework.test.bean.customer;
 
 import main.java.top.liyuejin.springframework.beans.BeansException;
 import main.java.top.liyuejin.springframework.beans.factory.*;
 import main.java.top.liyuejin.springframework.context.ApplicationContext;
 import main.java.top.liyuejin.springframework.context.ApplicationContextAware;
+import top.liyuejin.springframework.test.bean.customer.CustomerDao;
 
 /**
  * @author lyj
