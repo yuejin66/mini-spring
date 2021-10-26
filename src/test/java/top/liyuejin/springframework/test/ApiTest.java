@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 import top.liyuejin.springframework.test.bean.customer.CustomerDao;
 import top.liyuejin.springframework.test.bean.customer.CustomerService;
+import top.liyuejin.springframework.test.bean.student.StudentService;
 import top.liyuejin.springframework.test.bean.user.UserService;
 import top.liyuejin.springframework.test.common.MyBeanFactoryPostProcessor;
 import top.liyuejin.springframework.test.common.MyBeanPostProcessor;
@@ -146,4 +147,28 @@ public class ApiTest {
         System.out.println("测试结果：" + result);
         System.out.println("ApplicationContextAware：" + customerService.getApplicationContext());
     }
+
+    // 原型模式（使用 proxy）
+    @Test
+    public void test_prototype() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:factory-bean.xml");
+        context.registerShutdownHook();
+
+        Object studentService_1 = context.getBean("studentService", StudentService.class);
+        Object studentService_2 = context.getBean("studentService", StudentService.class);
+
+        // 配置 scope="prototype/singleton"
+        System.out.println(studentService_1);
+        System.out.println(studentService_2);
+
+        // 打印 16 进制哈希
+        System.out.println(studentService_1 + " hash：" + Integer.toHexString(studentService_1.hashCode()));
+
+        // 测试 代理方法
+        StudentService studentService = context.getBean("studentService", StudentService.class);
+        System.out.println("测试代理方法，结果：" + studentService.queryStuInfo());
+    }
+
+    // 代理模式
+
 }

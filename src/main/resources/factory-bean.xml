@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <bean id="studentDao" class="top.liyuejin.springframework.test.common.ProxyBeanFactory"/>
+    <bean id="studentService" class="top.liyuejin.springframework.test.bean.student.StudentService">
+        <property name="id" value="10001"/>
+        <property name="company" value="腾讯"/>
+        <property name="location" value="深圳"/>
+        <property name="studentDao" ref="studentDao"/>
+    </bean>
+</beans>
