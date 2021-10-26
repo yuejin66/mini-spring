@@ -12,4 +12,12 @@ public class ClassUtils {
         }
         return classLoader;
     }
+
+    public static boolean isCglibProxyClass(Class<?> clazz) {
+        return (null != clazz && isCglibProxyClassName(clazz.getName()));
+    }
+
+    public static boolean isCglibProxyClassName(String className) {
+        return (null != className && className.contains("&&"));
+    }
 }
