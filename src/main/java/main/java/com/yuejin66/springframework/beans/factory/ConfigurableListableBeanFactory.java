@@ -9,7 +9,7 @@ import main.java.com.yuejin66.springframework.beans.factory.config.ConfigurableB
 /**
  * 提供分析和修改 Bean 以及预先实例化的操作接口
  *
- * @author tom lee
+ * @author yuejin66
  */
 public interface ConfigurableListableBeanFactory extends ListableBeanFactory, AutowireCapableBeanFactory, ConfigurableBeanFactory {
 
