@@ -3,6 +3,7 @@ package com.yuejin66.springframework.test;
 import cn.hutool.core.io.IoUtil;
 import com.yuejin66.springframework.test.bean.customer.CustomerDao;
 import com.yuejin66.springframework.test.common.MyBeanPostProcessor;
+import com.yuejin66.springframework.test.event.CustomEvent;
 import main.java.com.yuejin66.springframework.beans.PropertyValue;
 import main.java.com.yuejin66.springframework.beans.PropertyValues;
 import main.java.com.yuejin66.springframework.beans.core.io.DefaultResourceLoader;
@@ -11,6 +12,7 @@ import main.java.com.yuejin66.springframework.beans.factory.config.BeanDefinitio
 import main.java.com.yuejin66.springframework.beans.factory.config.BeanReference;
 import main.java.com.yuejin66.springframework.beans.factory.support.DefaultListableBeanFactory;
 import main.java.com.yuejin66.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import main.java.com.yuejin66.springframework.context.ApplicationContext;
 import main.java.com.yuejin66.springframework.context.support.ClassPathXmlApplicationContext;
 import org.junit.Before;
 import org.junit.Test;
@@ -166,5 +168,12 @@ public class ApiTest {
         // 测试 代理方法
         StudentService studentService = context.getBean("studentService", StudentService.class);
         System.out.println("测试代理方法，结果：" + studentService.queryStuInfo());
+    }
+
+    @Test
+    public void test_event() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:event.xml");
+        context.publishEvent(new CustomEvent(context, 1019129009086763L, "成功了！"));
+        context.registerShutdownHook();
     }
 }

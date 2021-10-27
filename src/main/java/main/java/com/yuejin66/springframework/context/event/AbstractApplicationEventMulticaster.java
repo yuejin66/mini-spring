@@ -1,5 +1,6 @@
 package main.java.com.yuejin66.springframework.context.event;
 
+import com.sun.source.tree.ParameterizedTypeTree;
 import main.java.com.yuejin66.springframework.beans.BeansException;
 import main.java.com.yuejin66.springframework.beans.factory.BeanFactory;
 import main.java.com.yuejin66.springframework.beans.factory.BeanFactoryAware;
@@ -42,11 +43,11 @@ public abstract class AbstractApplicationEventMulticaster
 
     protected Collection<ApplicationListener> getApplicationListeners(ApplicationEvent event) {
         LinkedList<ApplicationListener> allListeners = new LinkedList<>();
-        applicationListeners.forEach(listener -> {
+        for (ApplicationListener<ApplicationEvent> listener : applicationListeners) {
             if (supportsEvent(listener, event)) {
                 allListeners.add(listener);
             }
-        });
+        }
         return allListeners;
     }
 
@@ -60,7 +61,10 @@ public abstract class AbstractApplicationEventMulticaster
         Class<?> targetClass = ClassUtils.isCglibProxyClass(listenerClass) ? listenerClass.getSuperclass() : listenerClass;
         Type genericInterface = targetClass.getGenericInterfaces()[0];
 
-        Type actualTypeArgument = ((ParameterizedType) genericInterface).getActualTypeArguments()[0];
+//        Type actualTypeArgument = ((ParameterizedType) genericInterface).getActualTypeArguments()[0];
+        ParameterizedType parameterizedType = (ParameterizedType) genericInterface;
+        Type actualTypeArgument = parameterizedType.getActualTypeArguments()[0];
+
         String className = actualTypeArgument.getTypeName();
         Class<?> eventClassName;
         try {
@@ -69,7 +73,7 @@ public abstract class AbstractApplicationEventMulticaster
             throw new BeansException("wrong event class name：" + className);
         }
         // 判定此 eventClassName  对象所表示的类或接口与指定的 event.getClass()  参数所表示的类或接口是否相同，或是否是其超类或超接口。
-        // isAssignableFrom 是用来判断子类和父类的关系的，或者接口的实现类和接口的关系的，默认所有的类的终极父类都是 Object 。
+        // isAssignableFrom 是用来判断子类和父类的关系的，或者接口的实现类和接口的关系的，默认所有的类的终极父类都是 Object。
         // 如果 A.isAssignableFrom(B) 结果是 true ，证明 B 可以转换成为 A, 也就是 A 可以由 B 转换而来
         return eventClassName.isAssignableFrom(event.getClass());
     }
