@@ -1,5 +1,9 @@
 ### mini-spring
 
+如何使用：
+1. 顺着单元测试 ApiTest 里面的方法逐一进行调试，由简至深。
+2. 测试方法的调试顺序同下编写流程（IOC -> AOP）难度递增的顺序。
+
 #### IOC
 
 1. 创建简单的 Bean 容器
@@ -23,4 +27,5 @@
 
 #### 参考资料
 
-- https://github.com/fuzhengwei/small-spring
+- [Spring IOC 有什么好处呢？](https://www.zhihu.com/question/23277575/answer/169698662)
+- [手撸 Spring 教程](https://github.com/fuzhengwei/small-spring)

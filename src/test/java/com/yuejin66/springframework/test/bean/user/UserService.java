@@ -11,8 +11,8 @@ public class UserService {
         this.name = name;
     }
 
-    public void queryUserInfo() {
-        System.out.println("查询用户信息：" + name);
+    public String queryUserInfo() {
+        return name;
     }
 
     @Override

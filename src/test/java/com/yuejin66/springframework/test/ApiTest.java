@@ -36,8 +36,11 @@ public class ApiTest {
         resourceLoader = new DefaultResourceLoader();
     }
 
+    /**
+     * 注册、获取和实例化 Bean
+     */
     @Test
-    public void beanFactoryTest() {
+    public void test_beanFactory() {
         // 1. 初始化 BeanFactory
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
         // 2. 注册 bean
@@ -45,51 +48,67 @@ public class ApiTest {
         beanFactory.registerBeanDefinition("userService", beanDefinition);
         // 3. 获取 bean
         UserService userService = (UserService) beanFactory.getBean("userService", "lee");
-        userService.queryUserInfo();
+        String info = userService.queryUserInfo();
+        System.out.println("测试结果：" + info);
     }
 
+    /**
+     * 注册、获取和实例化 Bean，可以添加属性
+     */
     @Test
-    public void beanFactory2Test() {
+    public void test_beanFactory_haveProperValues() {
         // 1. 初始化 BeanFactory
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
         // 2. 注册 CustomerDao
         beanFactory.registerBeanDefinition("customerDao", new BeanDefinition(CustomerDao.class));
         // 3. CustomerService 设置属性[id, customerDao]
         PropertyValues propertyValues = new PropertyValues();
-        propertyValues.addPropertyValue(new PropertyValue("id", "10002"));
+        propertyValues.addPropertyValue(new PropertyValue("id", "10001"));
         propertyValues.addPropertyValue(new PropertyValue("customerDao", new BeanReference("customerDao")));
-        // 4. CustomerService 注入 bean
-        BeanDefinition beanDefinition = new BeanDefinition(CustomerService.class, propertyValues);
-        beanFactory.registerBeanDefinition("customerService", beanDefinition);
+        // 4. 注册 CustomerService
+        beanFactory.registerBeanDefinition("customerService", new BeanDefinition(CustomerService.class, propertyValues));
         // 5. CustomerService 获取 bean
         CustomerService customerService = (CustomerService) beanFactory.getBean("customerService");
-        customerService.queryCustomerInfo();
+        String info = customerService.queryCustomerInfo();
+        System.out.println("测试结果：" + info);
     }
 
+    /**
+     * 加载文件（classpath）
+     */
     @Test
     public void test_classpath() throws IOException {
         Resource resource = resourceLoader.getResource("classpath:important.properties");
         InputStream inputStream = resource.getInputStream();
         String content = IoUtil.read(inputStream, "UTF-8");
-        System.out.println(content);
+        System.out.println("测试结果：" + content);
     }
 
+    /**
+     * 加载文件（相对/绝对路径）
+     */
     @Test
     public void test_file() throws IOException {
         Resource resource = resourceLoader.getResource("src/main/resources/important.properties");
         InputStream inputStream = resource.getInputStream();
         String content = IoUtil.read(inputStream, "UTF-8");
-        System.out.println(content);
+        System.out.println("测试结果：" + content);
     }
 
+    /**
+     * 加载文件（http）
+     */
     @Test
     public void test_url() throws IOException {
-        Resource resource = resourceLoader.getResource("http://github.com/yuejin66/mini-spring/important.properties");
+        Resource resource = resourceLoader.getResource("https://github.com/yuejin66/mini-spring/tree/master/src/main/resources/important.properties");
         InputStream inputStream = resource.getInputStream();
         String content = IoUtil.read(inputStream, "UTF-8");
-        System.out.println(content);
+        System.out.println("测试结果：" + content);
     }
 
+    /**
+     * 加载和解析 xml 文件
+     */
     @Test
     public void test_xml() {
         // 1. 初始化 BeanFactory
@@ -103,6 +122,9 @@ public class ApiTest {
         System.out.println("测试结果：" + result);
     }
 
+    /**
+     * 测试应用上下文
+     */
     @Test
     public void test_BeanFactoryPostProcessorAndBeanPostProcessor_1() {
         // 1-2 同上
@@ -121,10 +143,13 @@ public class ApiTest {
         System.out.println("测试结果：" + result);
     }
 
+    /**
+     * 测试应用上下文（xml 中带上 BeanPostFactoryProcessor 和 BeanPostProcessor）
+     */
     @Test
-    public void test_BeanFactoryPostProcessorAndBeanPostProcessor_2() {
+    public void test_BeanFactoryPostProcessorAndBeanPostProcessor_haveMyBeanPostProcessor() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:context_2.xml");
-        // 2. 获取 Bean 对象调用方法
+        // 获取 Bean 对象调用方法
         CustomerService customerService = context.getBean("customerService", CustomerService.class);
         String result = customerService.getCustomer();
         System.out.println("测试结果：" + result);
@@ -139,6 +164,9 @@ public class ApiTest {
         System.out.println(result);
     }
 
+    /**
+     * 测试感知容器对象
+     */
     @Test
     public void test_aware() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:init&destroy.xml");
@@ -149,7 +177,9 @@ public class ApiTest {
         System.out.println("ApplicationContextAware：" + customerService.getApplicationContext());
     }
 
-    // 原型模式（使用 proxy）
+    /**
+     * 原型模式（使用 proxy 代理）
+     */
     @Test
     public void test_prototype() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:factory-bean.xml");
@@ -170,6 +200,9 @@ public class ApiTest {
         System.out.println("测试代理方法，结果：" + studentService.queryStuInfo());
     }
 
+    /**
+     * 测试对象作用域和 FactoryBean
+     */
     @Test
     public void test_event() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:event.xml");

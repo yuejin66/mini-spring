@@ -10,11 +10,11 @@ public class CustomerDao {
 
     private static Map<String, String> map = new HashMap<>();
 
-//    static {
-//        map.put("10001", "客户A");
-//        map.put("10002", "客户B");
-//        map.put("10003", "客户C");
-//    }
+    static {
+        map.put("10001", "客户A");
+        map.put("10002", "客户B");
+        map.put("10003", "客户C");
+    }
 
     public void initDataMethod() {
         System.out.println("执行：init-method");
