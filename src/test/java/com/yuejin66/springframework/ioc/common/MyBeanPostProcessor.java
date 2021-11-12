@@ -1,8 +1,8 @@
-package com.yuejin66.springframework.test.common;
+package com.yuejin66.springframework.ioc.common;
 
 import main.java.com.yuejin66.springframework.beans.BeansException;
 import main.java.com.yuejin66.springframework.beans.factory.config.BeanPostProcessor;
-import com.yuejin66.springframework.test.bean.customer.CustomerService;
+import com.yuejin66.springframework.ioc.bean.customer.CustomerService;
 
 /**
  * @author lyj

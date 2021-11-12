@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * 应用上下文抽象类
+ * 实现核心方法 refresh。继承DefaultResourceLoader 是为了处理 spring.xml 配置资源的加载。
  *
  * @author yuejin66
  */

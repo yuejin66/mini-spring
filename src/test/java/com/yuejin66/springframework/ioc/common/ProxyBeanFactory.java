@@ -1,7 +1,7 @@
-package com.yuejin66.springframework.test.common;
+package com.yuejin66.springframework.ioc.common;
 
 import main.java.com.yuejin66.springframework.beans.factory.FactoryBean;
-import com.yuejin66.springframework.test.bean.student.StudentDao;
+import com.yuejin66.springframework.ioc.bean.student.StudentDao;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;

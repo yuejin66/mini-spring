@@ -3,7 +3,7 @@ package main.java.com.yuejin66.springframework.beans.factory.config;
 import main.java.com.yuejin66.springframework.beans.BeansException;
 
 /**
- * 用于修改新实例化 Bean 对象的扩展点
+ * 用于修改新实例化 Bean 对象的扩展点（需要注意一点，我们定义一个类实现了BeanPostProcessor，默认是会对整个Spring容器中所有的bean进行处理）
  *
  * @author yuejin66
  */

@@ -1,4 +1,4 @@
-package com.yuejin66.springframework.test.bean.customer;
+package com.yuejin66.springframework.ioc.bean.customer;
 
 import main.java.com.yuejin66.springframework.beans.BeansException;
 import main.java.com.yuejin66.springframework.beans.factory.*;
@@ -62,7 +62,7 @@ public class CustomerService implements BeanNameAware, BeanClassLoaderAware, App
         this.applicationContext = applicationContext;
     }
 
-    /* getter,setter */
+    /* ---------- get/set ---------- */
 
     public String getId() {
         return id;

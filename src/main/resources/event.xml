@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
     <!-- 监听刷新事件 -->
-    <bean class="com.yuejin66.springframework.test.event.ContextRefreshedEventListener"/>
+    <bean class="com.yuejin66.springframework.ioc.event.ContextRefreshedEventListener"/>
     <!-- 监听自定义事件 -->
-    <bean class="com.yuejin66.springframework.test.event.CustomEventListener"/>
+    <bean class="com.yuejin66.springframework.ioc.event.CustomEventListener"/>
     <!-- 监听关闭事件 -->
-    <bean class="com.yuejin66.springframework.test.event.ContextClosedEventListener"/>
+    <bean class="com.yuejin66.springframework.ioc.event.ContextClosedEventListener"/>
 </beans>

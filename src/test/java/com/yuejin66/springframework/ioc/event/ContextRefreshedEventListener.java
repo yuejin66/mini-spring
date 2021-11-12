@@ -1,4 +1,4 @@
-package com.yuejin66.springframework.test.event;
+package com.yuejin66.springframework.ioc.event;
 
 import main.java.com.yuejin66.springframework.context.ApplicationListener;
 import main.java.com.yuejin66.springframework.context.event.ContextRefreshedEvent;

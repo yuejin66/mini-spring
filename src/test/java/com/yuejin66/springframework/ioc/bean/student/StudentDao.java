@@ -1,4 +1,4 @@
-package com.yuejin66.springframework.test.bean.student;
+package com.yuejin66.springframework.ioc.bean.student;
 
 /**
  * @author yuejin66

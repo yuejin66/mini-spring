@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-    <bean id="customerDao" class="com.yuejin66.springframework.test.bean.customer.CustomerDao"/>
-    <bean id="customerService" class="com.yuejin66.springframework.test.bean.customer.CustomerService">
+    <bean id="customerDao" class="com.yuejin66.springframework.ioc.bean.customer.CustomerDao"/>
+    <bean id="customerService" class="com.yuejin66.springframework.ioc.bean.customer.CustomerService">
         <property name="id" value="10001"/>
         <property name="companyName" value="腾讯"/>
         <property name="location" value="深圳"/>
         <property name="customerDao" ref="customerDao"/>
     </bean>
-    <bean class="com.yuejin66.springframework.test.common.MyBeanPostProcessor"/>
-    <bean class="com.yuejin66.springframework.test.common.MyBeanFactoryPostProcessor"/>
+    <bean class="com.yuejin66.springframework.ioc.common.MyBeanPostProcessor"/>
+    <bean class="com.yuejin66.springframework.ioc.common.MyBeanFactoryPostProcessor"/>
 </beans>

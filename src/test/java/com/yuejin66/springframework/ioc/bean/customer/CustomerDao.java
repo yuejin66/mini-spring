@@ -1,4 +1,4 @@
-package com.yuejin66.springframework.test.bean.customer;
+package com.yuejin66.springframework.ioc.bean.customer;
 
 import java.util.HashMap;
 import java.util.Map;

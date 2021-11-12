@@ -1,4 +1,4 @@
-package com.yuejin66.springframework.test.common;
+package com.yuejin66.springframework.ioc.common;
 
 import main.java.com.yuejin66.springframework.beans.BeansException;
 import main.java.com.yuejin66.springframework.beans.PropertyValue;
@@ -17,6 +17,7 @@ public class MyBeanFactoryPostProcessor implements BeanFactoryPostProcessor {
 
         BeanDefinition beanDefinition = beanFactory.getBeanDefinition("customerService");
         PropertyValues propertyValues = beanDefinition.getPropertyValues();
+        // 测试在 Bean 实例化之前更改 BeanDefinition。
         propertyValues.addPropertyValue(new PropertyValue("companyName", "改为：阿里巴巴"));
     }
 }

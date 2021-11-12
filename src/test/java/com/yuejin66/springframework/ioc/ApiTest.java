@@ -1,9 +1,10 @@
-package com.yuejin66.springframework.test;
+package com.yuejin66.springframework.ioc;
 
 import cn.hutool.core.io.IoUtil;
-import com.yuejin66.springframework.test.bean.customer.CustomerDao;
-import com.yuejin66.springframework.test.common.MyBeanPostProcessor;
-import com.yuejin66.springframework.test.event.CustomEvent;
+import com.yuejin66.springframework.ioc.bean.customer.CustomerDao;
+import com.yuejin66.springframework.ioc.common.MyBeanPostProcessor;
+import com.yuejin66.springframework.ioc.event.CustomEvent;
+import main.java.com.yuejin66.springframework.aop.aspectj.AspectJExpressionPointcut;
 import main.java.com.yuejin66.springframework.beans.PropertyValue;
 import main.java.com.yuejin66.springframework.beans.PropertyValues;
 import main.java.com.yuejin66.springframework.beans.core.io.DefaultResourceLoader;
@@ -12,17 +13,17 @@ import main.java.com.yuejin66.springframework.beans.factory.config.BeanDefinitio
 import main.java.com.yuejin66.springframework.beans.factory.config.BeanReference;
 import main.java.com.yuejin66.springframework.beans.factory.support.DefaultListableBeanFactory;
 import main.java.com.yuejin66.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import main.java.com.yuejin66.springframework.context.ApplicationContext;
 import main.java.com.yuejin66.springframework.context.support.ClassPathXmlApplicationContext;
 import org.junit.Before;
 import org.junit.Test;
-import com.yuejin66.springframework.test.bean.customer.CustomerService;
-import com.yuejin66.springframework.test.bean.student.StudentService;
-import com.yuejin66.springframework.test.bean.user.UserService;
-import com.yuejin66.springframework.test.common.MyBeanFactoryPostProcessor;
+import com.yuejin66.springframework.ioc.bean.customer.CustomerService;
+import com.yuejin66.springframework.ioc.bean.student.StudentService;
+import com.yuejin66.springframework.ioc.bean.user.UserService;
+import com.yuejin66.springframework.ioc.common.MyBeanFactoryPostProcessor;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 
 /**
  * @author lyj
@@ -100,7 +101,7 @@ public class ApiTest {
      */
     @Test
     public void test_url() throws IOException {
-        Resource resource = resourceLoader.getResource("https://github.com/yuejin66/mini-spring/tree/master/src/main/resources/important.properties");
+        Resource resource = resourceLoader.getResource("https://www.yuejin66.com/file/important.properties");
         InputStream inputStream = resource.getInputStream();
         String content = IoUtil.read(inputStream, "UTF-8");
         System.out.println("测试结果：" + content);
@@ -144,7 +145,9 @@ public class ApiTest {
     }
 
     /**
-     * 测试应用上下文（xml 中带上 BeanPostFactoryProcessor 和 BeanPostProcessor）
+     * 测试应用上下文（xml 中带上 BeanPostFactoryProcessor 和 BeanPostProcessor）。
+     * 对比上面的方法，主要是隐藏了 DefaultListableBeanFactory，提供了修改 Bean 的定义信息
+     * 和扩展 Bean 的实例化信息功能（准确来说是在初始化前后，但此处还没实现 Bean 的初始化）。
      */
     @Test
     public void test_BeanFactoryPostProcessorAndBeanPostProcessor_haveMyBeanPostProcessor() {
@@ -155,6 +158,9 @@ public class ApiTest {
         System.out.println("测试结果：" + result);
     }
 
+    /**
+     * 钩子调用销毁方法
+     */
     @Test
     public void test_hook() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:init&destroy.xml");
@@ -208,5 +214,16 @@ public class ApiTest {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:event.xml");
         context.publishEvent(new CustomEvent(context, 1019129009086763L, "成功了！"));
         context.registerShutdownHook();
+    }
+
+    @Test
+    public void test_aop() throws NoSuchMethodException {
+        AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut(
+                "execution(* com.yuejin66.springframework.ioc.bean.customer.CustomerService.*(..))");
+        Class<CustomerService> clazz = CustomerService.class;
+        Method method = clazz.getDeclaredMethod("queryCustomerInfo");
+
+        System.out.println(pointcut.matches(clazz));         // true
+        System.out.println(pointcut.matches(method, clazz)); // true
     }
 }

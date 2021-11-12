@@ -3,7 +3,7 @@ package main.java.com.yuejin66.springframework.context.support;
 import main.java.com.yuejin66.springframework.beans.BeansException;
 
 /**
- * 应用上下文实现类
+ * 应用上下文实现类。这个类是最终交给用户使用的类。
  *
  * @author lyj
  */

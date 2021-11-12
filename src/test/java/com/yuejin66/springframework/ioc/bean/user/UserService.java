@@ -1,4 +1,4 @@
-package com.yuejin66.springframework.test.bean.user;
+package com.yuejin66.springframework.ioc.bean.user;
 
 /**
  * @author lyj
