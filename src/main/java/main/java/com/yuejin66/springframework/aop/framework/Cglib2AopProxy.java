@@ -24,7 +24,7 @@ public class Cglib2AopProxy implements AopProxy {
         enhancer.setSuperclass(advisedSupport.getTargetSource().getTarget().getClass());
         enhancer.setInterfaces(advisedSupport.getTargetSource().getTargetClass());
         enhancer.setCallback(new DynamicAdvisedInterceptor(advisedSupport));
-        return enhancer;
+        return enhancer.create();
     }
 
     private static class DynamicAdvisedInterceptor implements MethodInterceptor {
@@ -37,11 +37,15 @@ public class Cglib2AopProxy implements AopProxy {
 
         @Override
         public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
-            return new CglibMethodInvocation(
+            CglibMethodInvocation methodInvocation = new CglibMethodInvocation(
                     advisedSupport.getTargetSource().getTarget(),
                     method,
                     objects,
                     methodProxy);
+            if (advisedSupport.getMethodMatcher().matches(method, advisedSupport.getTargetSource().getTarget().getClass())) {
+                return advisedSupport.getMethodInterceptor().invoke(methodInvocation);
+            }
+            return methodInvocation.proceed();
         }
     }
 

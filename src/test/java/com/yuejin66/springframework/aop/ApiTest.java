@@ -27,9 +27,7 @@ public class ApiTest {
         advisedSupport.setMethodMatcher(new AspectJExpressionPointcut("execution(* com.yuejin66.springframework.aop.service.UserService.*(..))"));
 
         // 代理对象（JdkDynamicAopProxy）
-        JdkDynamicAopProxy jdkDynamicAopProxy = new JdkDynamicAopProxy(advisedSupport);
-        Object proxy = jdkDynamicAopProxy.getProxy();
-        UserService proxy_jdk = (UserService) proxy;
+        UserService proxy_jdk = (UserService) new JdkDynamicAopProxy(advisedSupport).getProxy();
         System.out.println("测试结果：" + proxy_jdk.queryUserInfo());
 
         // 代理对象（Cglib2AopProxy）
