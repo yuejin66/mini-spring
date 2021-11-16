@@ -5,6 +5,8 @@ import main.java.com.yuejin66.springframework.aop.PointcutAdvisor;
 import org.aopalliance.aop.Advice;
 
 /**
+ * 切面拦截器
+ *
  * @author lyj
  */
 public class AspectJExpressionPointcutAdvisor implements PointcutAdvisor {
@@ -29,5 +31,13 @@ public class AspectJExpressionPointcutAdvisor implements PointcutAdvisor {
     @Override
     public Advice getAdvice() {
         return advice;
+    }
+
+    public void setAdvice(Advice advice) {
+        this.advice = advice;
+    }
+
+    public void setExpression(String expression) {
+        this.expression = expression;
     }
 }

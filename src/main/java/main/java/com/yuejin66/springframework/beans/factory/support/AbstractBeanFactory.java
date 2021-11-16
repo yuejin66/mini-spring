@@ -40,7 +40,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport
 
     @Override
     public <T> T getBean(String beanName, Class<T> requiredType) throws BeansException {
-        return (T) doGetBean(beanName, null);
+        return doGetBean(beanName, null);
     }
 
     @Override
